@@ -1,0 +1,12 @@
+{
+  "appId": "com.example.calculadoracientifica",
+  "appName": "Calculadora científica",
+  "webDir": "www",
+  "backgroundColor": "#0d1015",
+  "android": {
+    "allowMixedContent": false
+  },
+  "server": {
+    "androidScheme": "https"
+  }
+}

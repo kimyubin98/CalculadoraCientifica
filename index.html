@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#161b22">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Calculadora">
+  <title>Calculadora científica</title>
+  <meta name="description" content="Calculadora científica ligera con modos DEG y RAD, sin dependencias.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" type="image/png" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="calc" aria-label="Calculadora científica">
+
+    <header class="calc__bar">
+      <h1 class="calc__title">Calculadora científica</h1>
+      <div class="calc__tools">
+        <div class="seg" role="group" aria-label="Unidad angular">
+          <button type="button" class="seg__btn" data-action="mode" data-value="DEG" aria-pressed="true" title="Grados (tecla D para alternar)">DEG</button>
+          <button type="button" class="seg__btn" data-action="mode" data-value="RAD" aria-pressed="false" title="Radianes (tecla D para alternar)">RAD</button>
+        </div>
+        <button type="button" id="theme-toggle" class="theme" aria-label="Cambiar a modo claro">☀</button>
+      </div>
+    </header>
+
+    <section class="screen" aria-label="Pantalla">
+      <div id="expression" class="screen__expr"></div>
+      <output id="result" class="screen__result" aria-live="polite">0</output>
+    </section>
+
+    <section class="keys">
+      <!-- Funciones científicas -->
+      <div class="keys__sci" role="group" aria-label="Funciones científicas">
+        <button type="button" class="key key--fn" data-action="post" data-value="sq" aria-label="Al cuadrado" title="Al cuadrado">x<sup>2</sup></button>
+        <button type="button" class="key key--fn" data-action="op" data-value="^" aria-label="Potencia" title="Potencia (^)">x<sup>y</sup></button>
+        <button type="button" class="key key--fn" data-action="fn" data-value="sqrt" aria-label="Raíz cuadrada" title="Raíz cuadrada (Q)">√x</button>
+        <button type="button" class="key key--fn" data-action="op" data-value="ʸ√" aria-label="Raíz enésima: índice, raíz, número" title="Raíz enésima (R): 3 ʸ√ 27 = 3"><sup>y</sup>√x</button>
+        <button type="button" class="key key--fn" data-action="post" data-value="inv" aria-label="Inverso" title="Inverso (1/x)">1/x</button>
+
+        <button type="button" class="key key--fn" data-action="fn" data-value="log" aria-label="Logaritmo decimal" title="Logaritmo decimal (L)">log</button>
+        <button type="button" class="key key--fn" data-action="fn" data-value="ln" aria-label="Logaritmo natural" title="Logaritmo natural (N)">ln</button>
+        <button type="button" class="key key--fn" data-action="fn" data-value="abs" aria-label="Valor absoluto" title="Valor absoluto (A)">|x|</button>
+        <button type="button" class="key key--fn" data-action="post" data-value="!" aria-label="Factorial" title="Factorial (!)">n!</button>
+        <button type="button" class="key key--fn" data-action="exp" aria-label="Notación científica" title="Notación científica (E mayúscula): 1.5E3">EXP</button>
+
+        <button type="button" class="key key--fn" data-action="fn" data-value="sin" aria-label="Seno" title="Seno (S)">sin</button>
+        <button type="button" class="key key--fn" data-action="fn" data-value="cos" aria-label="Coseno" title="Coseno (C)">cos</button>
+        <button type="button" class="key key--fn" data-action="fn" data-value="tan" aria-label="Tangente" title="Tangente (T)">tan</button>
+        <button type="button" class="key key--fn" data-action="const" data-value="π" aria-label="Pi" title="Pi (P)">π</button>
+        <button type="button" class="key key--fn" data-action="const" data-value="e" aria-label="Constante de Euler" title="Constante de Euler (e)">e</button>
+
+        <button type="button" class="key key--fn" data-action="fn" data-value="asin" aria-label="Arcoseno" title="Arcoseno">asin</button>
+        <button type="button" class="key key--fn" data-action="fn" data-value="acos" aria-label="Arcocoseno" title="Arcocoseno">acos</button>
+        <button type="button" class="key key--fn" data-action="fn" data-value="atan" aria-label="Arcotangente" title="Arcotangente">atan</button>
+        <button type="button" class="key key--op" data-action="open" aria-label="Abrir paréntesis">(</button>
+        <button type="button" class="key key--op" data-action="close" aria-label="Cerrar paréntesis">)</button>
+      </div>
+
+      <!-- Teclado numérico y operaciones -->
+      <div class="keys__pad" role="group" aria-label="Números y operaciones">
+        <button type="button" class="key key--clear" data-action="clear" aria-label="Limpiar todo" title="Limpiar todo (Esc)">AC</button>
+        <button type="button" class="key key--clear" data-action="back" aria-label="Borrar último carácter" title="Borrar (Retroceso)">⌫</button>
+        <button type="button" class="key key--op" data-action="post" data-value="%" aria-label="Porcentaje">%</button>
+        <button type="button" class="key key--op" data-action="op" data-value="÷" aria-label="Dividir">÷</button>
+
+        <button type="button" class="key key--num" data-action="digit" data-value="7">7</button>
+        <button type="button" class="key key--num" data-action="digit" data-value="8">8</button>
+        <button type="button" class="key key--num" data-action="digit" data-value="9">9</button>
+        <button type="button" class="key key--op" data-action="op" data-value="×" aria-label="Multiplicar">×</button>
+
+        <button type="button" class="key key--num" data-action="digit" data-value="4">4</button>
+        <button type="button" class="key key--num" data-action="digit" data-value="5">5</button>
+        <button type="button" class="key key--num" data-action="digit" data-value="6">6</button>
+        <button type="button" class="key key--op" data-action="op" data-value="−" aria-label="Restar">−</button>
+
+        <button type="button" class="key key--num" data-action="digit" data-value="1">1</button>
+        <button type="button" class="key key--num" data-action="digit" data-value="2">2</button>
+        <button type="button" class="key key--num" data-action="digit" data-value="3">3</button>
+        <button type="button" class="key key--op" data-action="op" data-value="+" aria-label="Sumar">+</button>
+
+        <button type="button" class="key key--num" data-action="sign" aria-label="Cambiar signo">±</button>
+        <button type="button" class="key key--num" data-action="digit" data-value="0">0</button>
+        <button type="button" class="key key--num" data-action="decimal" aria-label="Punto decimal">.</button>
+        <button type="button" class="key key--eq" data-action="equals" aria-label="Igual" title="Calcular (Enter)">=</button>
+      </div>
+    </section>
+
+    <footer class="calc__credit">
+      Creada por <strong>Jose Antonio Hernandez Jimenez</strong>
+    </footer>
+
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
